@@ -5,15 +5,31 @@
  * Date: 10/4/18
  * Time: 9:47 PM
  */
-main::start(example.csv);
-
+main::start("example.csv");
 class main  {
-
     static public function start($filename) {
+        $records = csv::getRecords($filename);
+        $table = html::generateTable($records);
+    }
+}
 
-
-$records = csv::getrecords(filename);
-print_r($records);
+class html {
+    public static function generateTable($records) {
+        $count = 0;
+        foreach ($records as $record) {
+            if($count == 0) {
+                $array = $record->returnArray();
+                $fields = array_keys($array);
+                $values = array_values($array);
+                print_r($fields);
+                print_r($values);
+            } else {
+                $array = $record->returnArray();
+                $values = array_values($array);
+                print_r($values);
+            }
+            $count++;
+        }
     }
 }
 
