@@ -34,37 +34,44 @@ class html {
 }
 
 class csv {
-    static public function getrecords($filename) {
-
-        $file = fopen("example.csv","r");
-
+    static public function getRecords($filename) {
+        $file = fopen($filename,"r");
+        $fieldNames = array();
+        $count = 0;
         while(! feof($file))
         {
             $record = fgetcsv($file);
-            $records[] = recordFactory::create();
+            if($count == 0) {
+                $fieldNames = $record;
+            } else {
+                $records[] = recordFactory::create($fieldNames, $record);
+            }
+            $count++;
         }
-
         fclose($file);
         return $records;
     }
 }
 
-class record
-{
-    public function _construct(Array $record = null)
+class record {
+    public function __construct(Array $fieldNames = null, $values = null )
     {
-        $this->createProperty();
-        print_r($this);
+        $record = array_combine($fieldNames, $values);
+        foreach ($record as $property => $value) {
+            $this->createProperty($property, $value);
+        }
     }
-
+    public function returnArray() {
+        $array = (array) $this;
+        return $array;
+    }
     public function createProperty($name = 'first', $value = 'hema') {
-    $this->{$name} = $value;
-}
-}
-
-class recordFactory {
-    public static function create(Array $array = null) {
-        $record = new record($array);
+        $this->{$name} = $value;
     }
 }
-
+class recordFactory {
+    public static function create(Array $fieldNames = null, Array $values = null) {
+        $record = new record($fieldNames, $values);
+        return $record;
+    }
+}
