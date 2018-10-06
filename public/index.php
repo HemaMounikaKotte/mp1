@@ -34,60 +34,66 @@ class html {
             if($count == 0) {
                 $array = $record->returnArray();
                 $fields = array_keys($array);
-                $tablehead = self::returnHeadings($fields);
+                $tablehead = self::getHeadings($fields);
                 $htmlOutput .= '<thead><tr>'.$tablehead.'</tr></thead><tbody>';
                 $values = array_values($array);
-                $tablerow = self::returnValues($values);
-                //$htmlOutput .= '<tbody>'.$tablerow.'</tbody>';
+                $tablerow = self::getValues($values);
                 $htmlOutput .= $tablerow;
             } else {
                 $array = $record->returnArray();
                 $values = array_values($array);
-                $tablerow = self::returnValues($values);
-                //$htmlOutput .= '<tbody>'.$tablerow.'</tbody>';
+                $tablerow = self::getValues($values);
                 $htmlOutput .= $tablerow;
             }
             $count++;
 
-            //$htmlOutput .= '</tbody>';
+
         }
         $htmlOutput .= '</tbody>';
         return $htmlOutput;
     }
+
+    public static function transform($values,$c)
+    {
+        $data = "";
+        if(!empty($values[$c]))
+        {
+            $data = $values[$c];
+        }
+        else
+        {
+            $data = "&nbsp";
+            }
+        return $data;
+    }
     
-static public function returnHeadings($fields)
+public static function getHeadings($fields)
     {
         $num = count($fields);
         $tablehead = "'";
         for($c = 0; $c < $num; $c++)
         {
-            if(!empty($fields[$c]))
-            {
-                $head = $fields[$c];
-            }
-            else
-            {
-                $head = "&nbsp;";
-            }
+            $head = self::transform($fields, $c);
             $tablehead .= '<th>'.$head.'</th>';
         }
         return $tablehead;
     }
     
-    static public function returnValues($values)
+    /**
+     * This function takes an array of values and
+     * then the reads the array
+     * @param $values
+     * @return string
+     *
+     */
+     public static function getValues($values)
     {
         $tablerow = '<tr>';
         $num = count($values);
         for($c = 0; $c < $num; $c++)
         {
-            if(!empty($values[$c]))
-            {
-                $data = $values[$c];
-            }
-            else
-            {
-                $data = "&nbsp;";
-            }
+            $data = self::transform($values, $c);
+
             $tablerow .= '<td>'.$data.'</td>';
 
         }
