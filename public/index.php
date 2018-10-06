@@ -78,7 +78,7 @@ public static function getHeadings($fields)
         }
         return $tablehead;
     }
-    
+
     /**
      * This function takes an array of values and
      * then the reads the array
