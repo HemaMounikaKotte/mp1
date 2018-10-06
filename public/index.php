@@ -28,14 +28,18 @@ href = "https://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/css/bootstrap.min.css"/>
 }
 class html {
     public static function generateTable($records) {
+    $htmlOutput = \'\';
         $count = 0;
         foreach ($records as $record) {
             if($count == 0) {
                 $array = $record->returnArray();
                 $fields = array_keys($array);
+                $tablehead = self::returnHeadings($fields);
+                $htmlOutput .= \'<thead><tr>\'.$tablehead.\'</tr></thead><tbody>\';
                 $values = array_values($array);
-                print_r($fields);
-                print_r($values);
+                $tablerow = self::returnValues($values);
+                //$htmlOutput .= \'<tbody>\'.$tablerow.\'</tbody>\';
+                $htmlOutput .= $tablerow;
             } else {
                 $array = $record->returnArray();
                 $values = array_values($array);
