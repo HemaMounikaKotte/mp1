@@ -43,6 +43,37 @@ class html {
             } else {
                 $array = $record->returnArray();
                 $values = array_values($array);
+                $tablerow = self::returnValues($values);
+                //$htmlOutput .= \'<tbody>\'.$tablerow.\'</tbody>\';
+                $htmlOutput .= $tablerow;
+            }
+            $count++;
+
+            //$htmlOutput .= \'</tbody>\';
+        }
+        $htmlOutput .= \'</tbody>\';
+        return $htmlOutput;
+    }
+    
+static public function returnHeadings($fields)
+    {
+        $num = count($fields);
+        $tablehead = \'\';
+        for($c = 0; $c < $num; $c++)
+        {
+            if(!empty($fields[$c]))
+            {
+                $head = $fields[$c];
+            }
+            else
+            {
+                $head = "&nbsp;";
+            }
+            $tablehead .= \'<th>\'.$head.\'</th>\';
+        }
+        return $tablehead;
+    }
+
                 print_r($values);
             }
             $count++;
