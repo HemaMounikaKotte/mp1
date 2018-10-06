@@ -25,13 +25,18 @@ class csv {
         while(! feof($file))
         {
             $record = fgetcsv($file);
-            $records[] = $record;
+            $records[] = recordFactory::create();
         }
 
         fclose($file);
-        print_r($records);
+        return $records;
     }
 }
 
-
+class record {}
+class recordFactory {
+    public static function create(Array $array = null) {
+        $record = new record();
+    }
+}
 
