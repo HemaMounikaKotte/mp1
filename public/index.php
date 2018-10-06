@@ -33,10 +33,22 @@ class csv {
     }
 }
 
-class record {}
+class record
+{
+    public function _construct(Array $record = null)
+    {
+        $this->createProperty();
+        print_r($this);
+    }
+
+    public function createProperty($name = 'first', $value = 'hema') {
+    $this->{$name} = $value;
+}
+}
+
 class recordFactory {
     public static function create(Array $array = null) {
-        $record = new record();
+        $record = new record($array);
     }
 }
 
