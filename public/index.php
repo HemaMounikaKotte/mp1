@@ -10,9 +10,22 @@ class main  {
     static public function start($filename) {
         $records = csv::getRecords($filename);
         $table = html::generateTable($records);
+        system::htmlPage($table);
     }
 }
 
+class system {
+    public static function htmlPage($page)
+    {
+        $fpage = '<html><head><title>CSV Table</title><link rel="stylesheet" type="text/css"
+href = "https://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/css/bootstrap.min.css"/></head>\';
+        $fpage .= \'<body>\';
+        $fpage .= \'<table class = "table table-striped">\';
+        $fpage .= $page;
+        $fpage .= \'</table></body></html>\';
+        print$ fpage;
+}
+}
 class html {
     public static function generateTable($records) {
         $count = 0;
@@ -65,7 +78,8 @@ class record {
         $array = (array) $this;
         return $array;
     }
-    public function createProperty($name = 'first', $value = 'hema') {
+    public function createProperty($name = '
+}first', $value = 'hema') {
         $this->{$name} = $value;
     }
 }
