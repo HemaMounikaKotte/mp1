@@ -73,10 +73,31 @@ static public function returnHeadings($fields)
         }
         return $tablehead;
     }
-
-                print_r($values);
+    
+    static public function returnValues($values)
+    {
+        $tablerow = \'<tr>\';
+        $num = count($values);
+        for($c = 0; $c < $num; $c++)
+        {
+            if(!empty($values[$c]))
+            {
+                $data = $values[$c];
             }
-            $count++;
+            else
+            {
+                $data = "&nbsp;";
+            }
+            $tablerow .= \'<td>\'.$data.\'</td>\';
+
+        }
+        $tablerow .= \'</tr>\';
+        return $tablerow;
+    }
+}
+
+                
+            }
         }
     }
 }
