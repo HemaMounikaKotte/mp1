@@ -5,6 +5,7 @@
  * Date: 10/4/18
  * Time: 9:47 PM
  */
+
 main::start("example.csv");
 class main  {
     static public function start($filename) {
@@ -17,48 +18,47 @@ class main  {
 class system {
     public static function htmlPage($page)
     {
-        $fpage = '<html><head><title>CSV Table</title><link rel="stylesheet" type="text/css"
-href = "https://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/css/bootstrap.min.css"/></head>\';
-        $fpage .= \'<body>\';
-        $fpage .= \'<table class = "table table-striped">\';
+        $fpage = '<html><head><title>CSV Table</title><link rel="stylesheet" type="text/css"href = "https://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/css/bootstrap.min.css"/></head>';
+        $fpage .= '<body>';
+        $fpage .= '<table class = "table table-striped">';
         $fpage .= $page;
-        $fpage .= \'</table></body></html>\';
-        print$ fpage;
+        $fpage .= '</table></body></html>';
+        print $fpage;
 }
 }
 class html {
     public static function generateTable($records) {
-    $htmlOutput = \'\';
+    $htmlOutput = "'";
         $count = 0;
         foreach ($records as $record) {
             if($count == 0) {
                 $array = $record->returnArray();
                 $fields = array_keys($array);
                 $tablehead = self::returnHeadings($fields);
-                $htmlOutput .= \'<thead><tr>\'.$tablehead.\'</tr></thead><tbody>\';
+                $htmlOutput .= '<thead><tr>'.$tablehead.'</tr></thead><tbody>';
                 $values = array_values($array);
                 $tablerow = self::returnValues($values);
-                //$htmlOutput .= \'<tbody>\'.$tablerow.\'</tbody>\';
+                //$htmlOutput .= '<tbody>'.$tablerow.'</tbody>';
                 $htmlOutput .= $tablerow;
             } else {
                 $array = $record->returnArray();
                 $values = array_values($array);
                 $tablerow = self::returnValues($values);
-                //$htmlOutput .= \'<tbody>\'.$tablerow.\'</tbody>\';
+                //$htmlOutput .= '<tbody>'.$tablerow.'</tbody>';
                 $htmlOutput .= $tablerow;
             }
             $count++;
 
-            //$htmlOutput .= \'</tbody>\';
+            //$htmlOutput .= '</tbody>';
         }
-        $htmlOutput .= \'</tbody>\';
+        $htmlOutput .= '</tbody>';
         return $htmlOutput;
     }
     
 static public function returnHeadings($fields)
     {
         $num = count($fields);
-        $tablehead = \'\';
+        $tablehead = "'";
         for($c = 0; $c < $num; $c++)
         {
             if(!empty($fields[$c]))
@@ -69,14 +69,14 @@ static public function returnHeadings($fields)
             {
                 $head = "&nbsp;";
             }
-            $tablehead .= \'<th>\'.$head.\'</th>\';
+            $tablehead .= '<th>'.$head.'</th>';
         }
         return $tablehead;
     }
     
     static public function returnValues($values)
     {
-        $tablerow = \'<tr>\';
+        $tablerow = '<tr>';
         $num = count($values);
         for($c = 0; $c < $num; $c++)
         {
@@ -88,17 +88,11 @@ static public function returnHeadings($fields)
             {
                 $data = "&nbsp;";
             }
-            $tablerow .= \'<td>\'.$data.\'</td>\';
+            $tablerow .= '<td>'.$data.'</td>';
 
         }
-        $tablerow .= \'</tr>\';
+        $tablerow .= '</tr>';
         return $tablerow;
-    }
-}
-
-                
-            }
-        }
     }
 }
 
@@ -134,8 +128,7 @@ class record {
         $array = (array) $this;
         return $array;
     }
-    public function createProperty($name = '
-}first', $value = 'hema') {
+    public function createProperty($name, $value) {
         $this->{$name} = $value;
     }
 }
