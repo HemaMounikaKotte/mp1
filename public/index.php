@@ -11,12 +11,13 @@ class main  {
     static public function start($filename) {
         $records = csv::getRecords($filename);
         $table = html::generateTable($records);
-        system::htmlPage($table);
+        $system = new system;
+        $system->generateHtml($table);
     }
 }
 
 class system {
-    public static function htmlPage($page)
+    public function generateHtml($page)
     {
         $fpage = '<html><head><title>CSV Table</title><link rel="stylesheet" type="text/css"href = "https://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/css/bootstrap.min.css"/></head>';
         $fpage .= '<body>';
@@ -28,7 +29,7 @@ class system {
 }
 class html {
     public static function generateTable($records) {
-    $htmlOutput = "'";
+    $htmlOutput = "";
         $count = 0;
         foreach ($records as $record) {
             if($count == 0) {
@@ -70,7 +71,7 @@ class html {
 public static function getHeadings($fields)
     {
         $num = count($fields);
-        $tablehead = "'";
+        $tablehead = "";
         for($c = 0; $c < $num; $c++)
         {
             $head = self::transform($fields, $c);
@@ -78,7 +79,6 @@ public static function getHeadings($fields)
         }
         return $tablehead;
     }
-
     /**
      * This function takes an array of values and
      * then the reads the array
@@ -126,6 +126,10 @@ class record {
     public function __construct(Array $fieldNames = null, $values = null )
     {
         $record = array_combine($fieldNames, $values);
+        $this->createProperties($record);
+    }
+
+    public function createProperties($record){
         foreach ($record as $property => $value) {
             $this->createProperty($property, $value);
         }
